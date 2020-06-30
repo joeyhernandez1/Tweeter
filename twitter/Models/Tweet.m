@@ -18,13 +18,13 @@
     if (self) {
         
         // Is this a re-tweet?
-        NSDictionary *originalTweet = dictionary[@"retweeted_status"];
-        if(originalTweet != nil){
+        //NSDictionary *originalTweet =dictionary[@"retweeted_status"];
+        if(dictionary[@"retweeted"]){
             NSDictionary *userDictionary = dictionary[@"user"];
             self.retweetedByUser = [[User alloc] initWithDictionary:userDictionary];
 
             // Change tweet to original tweet
-            dictionary = originalTweet;
+            //dictionary = originalTweet;
         }
         self.idStr = dictionary[@"id_str"];
         self.text = dictionary[@"text"];
