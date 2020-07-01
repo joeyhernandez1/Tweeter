@@ -100,7 +100,7 @@
     cell.tweetTextLabel.text = tweet.text;
     cell.retweetsCountLabel.text = [NSString stringWithFormat:@"%d", tweet.retweetCount];
     cell.favoritesCountLabel.text = [NSString stringWithFormat:@"%d", tweet.favoriteCount];
-    cell.createdAtLabel.text = tweet.createdAtString;
+    cell.createdAgoLabel.text = tweet.createdAgoString;
     [cell.profileImageView setImageWithURL:tweet.user.profileImageURL];
     
     cell.retweetsButton.selected = tweet.retweeted;

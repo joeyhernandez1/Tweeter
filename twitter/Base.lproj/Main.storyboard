@@ -205,7 +205,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="createdAtLabel" destination="CT1-Gm-Vkp" id="H24-Jf-Uvt"/>
+                                            <outlet property="createdAgoLabel" destination="CT1-Gm-Vkp" id="F0c-mF-JN0"/>
                                             <outlet property="dmButton" destination="Gdf-yc-CFD" id="q7Q-34-oxY"/>
                                             <outlet property="favoritesButton" destination="ea5-A5-CsZ" id="eG6-cj-bzT"/>
                                             <outlet property="favoritesCountLabel" destination="SR7-0K-HtY" id="i88-GL-R42"/>
