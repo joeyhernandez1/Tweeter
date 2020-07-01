@@ -11,8 +11,11 @@
 #import "TweetCell.h"
 #import "Tweet.h"
 #import "UIImageView+AFNetworking.h"
+#import "ComposeViewController.h"
 
-@interface TimelineViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface TimelineViewController () <UITableViewDataSource,
+                                      UITableViewDelegate,
+                                      ComposeViewControllerDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *tweetsArray;
@@ -52,27 +55,29 @@
             NSLog(@"😫😫😫 Error getting home timeline: %@", error.localizedDescription);
         }
         [self.tableView reloadData];
-        
         [self.refreshControl endRefreshing];
     }];
-    
+
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
 
-/*
+
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    
+    UINavigationController *navigationController = [segue destinationViewController];
+    ComposeViewController *composeController = (ComposeViewController *)navigationController.topViewController;
+    composeController.delegate = self;
 }
-*/
 
-
+- (void) didTweet:(Tweet *)tweet {
+    [self.tweetsArray insertObject:tweet atIndex:0];
+    [self.tableView reloadData];
+}
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView
                  cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
@@ -85,12 +90,9 @@
     cell.retweetsCountLabel.text = [NSString stringWithFormat:@"%d", cell.tweet.retweetCount];
     cell.favoritesCountLabel.text = [NSString stringWithFormat:@"%d", cell.tweet.favoriteCount];
     cell.createdAtLabel.text = cell.tweet.createdAtString;
-    
-    NSURL *profileImageURL = [NSURL URLWithString:cell.tweet.user.profileImageURLString];
-    [cell.profileImageView setImageWithURL:profileImageURL];
+    [cell.profileImageView setImageWithURL:cell.tweet.user.profileImageURL];
     
     return cell;
-    
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
