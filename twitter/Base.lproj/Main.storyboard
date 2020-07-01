@@ -117,6 +117,9 @@
                                                         <constraint firstAttribute="width" constant="30" id="s9X-PP-KQF"/>
                                                     </constraints>
                                                     <state key="normal" title="Retweets" image="retweet-icon"/>
+                                                    <connections>
+                                                        <action selector="didTapRetweet:" destination="VcD-si-TYF" eventType="touchUpInside" id="ZgM-rZ-Prt"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ea5-A5-CsZ">
                                                     <rect key="frame" x="241" y="78" width="30" height="30"/>
@@ -125,6 +128,9 @@
                                                         <constraint firstAttribute="height" constant="30" id="j3x-4U-FdY"/>
                                                     </constraints>
                                                     <state key="normal" title="Favorites" image="favor-icon"/>
+                                                    <connections>
+                                                        <action selector="didTapFavorite:" destination="VcD-si-TYF" eventType="touchUpInside" id="EBP-Fa-JtL"/>
+                                                    </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="replys" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pYS-bX-tW9">
                                                     <rect key="frame" x="111" y="89" width="35" height="15"/>
