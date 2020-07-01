@@ -14,6 +14,7 @@
 #import "ComposeViewController.h"
 #import "AppDelegate.h"
 #import "LoginViewController.h"
+#import "NSDate+DateTools.h"
 
 @interface TimelineViewController () <UITableViewDataSource,
                                       UITableViewDelegate,
@@ -92,14 +93,18 @@
                  cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
         
     TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetCell"];
-    cell.tweet = self.tweetsArray[indexPath.row];
-    cell.nameLabel.text = cell.tweet.user.name;
-    cell.screenNameLabel.text = [@"@" stringByAppendingString:cell.tweet.user.screenName];
-    cell.tweetTextLabel.text = cell.tweet.text;
-    cell.retweetsCountLabel.text = [NSString stringWithFormat:@"%d", cell.tweet.retweetCount];
-    cell.favoritesCountLabel.text = [NSString stringWithFormat:@"%d", cell.tweet.favoriteCount];
-    cell.createdAtLabel.text = cell.tweet.createdAtString;
-    [cell.profileImageView setImageWithURL:cell.tweet.user.profileImageURL];
+    Tweet *tweet = self.tweetsArray[indexPath.row];
+    cell.tweet = tweet;
+    cell.nameLabel.text = tweet.user.name;
+    cell.screenNameLabel.text = [@"@" stringByAppendingString:tweet.user.screenName];
+    cell.tweetTextLabel.text = tweet.text;
+    cell.retweetsCountLabel.text = [NSString stringWithFormat:@"%d", tweet.retweetCount];
+    cell.favoritesCountLabel.text = [NSString stringWithFormat:@"%d", tweet.favoriteCount];
+    cell.createdAtLabel.text = tweet.createdAtString;
+    [cell.profileImageView setImageWithURL:tweet.user.profileImageURL];
+    
+    cell.retweetsButton.selected = tweet.retweeted;
+    cell.favoritesButton.selected = tweet.favorited;
     
     return cell;
 }

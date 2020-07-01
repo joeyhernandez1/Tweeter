@@ -8,6 +8,7 @@
 
 #import "TweetCell.h"
 #import "APIManager.h"
+#import "UIImageView+AFNetworking.h"
 
 @implementation TweetCell
 
@@ -18,7 +19,7 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
+    
 }
 
 - (IBAction)didTapRetweet:(id)sender {
@@ -58,9 +59,9 @@
 
 - (IBAction)didTapFavorite:(id)sender {
     
-    if (self.favoritesButton.isSelected) {
+    if (self.tweet.favorited) {
         
-        self.favoritesButton.selected = NO;
+        self.tweet.favorited = NO;
         self.tweet.favoriteCount -= 1;
         
         [[APIManager shared] unfavorite:self.tweet completion:^(Tweet *tweet, NSError *error) {
@@ -74,7 +75,7 @@
     }
     else {
         
-        self.favoritesButton.selected = YES;
+        self.tweet.favorited = YES;
         self.tweet.favoriteCount += 1;
         
         [[APIManager shared] favorite:self.tweet completion:^(Tweet *tweet, NSError *error) {
@@ -87,7 +88,7 @@
         }];
     }
     
-    self.tweet.favorited = self.favoritesButton.selected;
+    self.favoritesButton.selected = self.tweet.favorited;
     [self refreshData];
 }
 
