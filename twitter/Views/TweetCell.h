@@ -3,7 +3,6 @@
 //  twitter
 //
 //  Created by Joey R. Hernandez Perez on 6/29/20.
-//  Copyright © 2020 Emerson Malca. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -16,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) IBOutlet UIImageView *profileImageView;
 @property (strong, nonatomic) IBOutlet UILabel *nameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *screenNameLabel;
-@property (strong, nonatomic) IBOutlet UILabel *createdAtLabel;
+@property (strong, nonatomic) IBOutlet UILabel *createdAgoLabel;
 @property (strong, nonatomic) IBOutlet UILabel *tweetTextLabel;
 @property (strong, nonatomic) IBOutlet UIButton *replysButton;
 @property (strong, nonatomic) IBOutlet UIButton *retweetsButton;

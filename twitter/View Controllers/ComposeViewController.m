@@ -26,7 +26,6 @@
 }
 
 - (IBAction)onTweetTap:(id)sender {
-    
     [[APIManager shared] postStatusWithText:self.textView.text
                                   completion:^(Tweet *tweet, NSError *error) {
         if (error != nil) {
@@ -41,7 +40,7 @@
 }
 
 - (IBAction)onCloseTap:(id)sender {
-    
+
     [self dismissViewControllerAnimated:true completion:nil];
 }
 

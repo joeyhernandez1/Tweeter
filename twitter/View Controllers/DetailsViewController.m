@@ -1,34 +1,50 @@
 //
-//  TweetCell.m
+//  DetailsViewController.m
 //  twitter
 //
-//  Created by Joey R. Hernandez Perez on 6/29/20.
+//  Created by Joey R. Hernandez Perez on 7/1/20.
 //  Copyright © 2020 Emerson Malca. All rights reserved.
 //
 
-#import "TweetCell.h"
-#import "APIManager.h"
+#import "DetailsViewController.h"
 #import "UIImageView+AFNetworking.h"
+#import "APIManager.h"
 
-@implementation TweetCell
+@interface DetailsViewController ()
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
+@property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *screenNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *createdAgoLabel;
+@property (weak, nonatomic) IBOutlet UILabel *tweetTextLabel;
+@property (weak, nonatomic) IBOutlet UIButton *replysButton;
+@property (weak, nonatomic) IBOutlet UIButton *retweetsButton;
+@property (weak, nonatomic) IBOutlet UIButton *favoritesButton;
+@property (weak, nonatomic) IBOutlet UILabel *replyCountLabel;
+@property (weak, nonatomic) IBOutlet UILabel *retweetsCountLabel;
+@property (weak, nonatomic) IBOutlet UILabel *favoritesCountLabel;
+
+@end
+
+@implementation DetailsViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
     
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-    
-}
-
-- (void) prepareForReuse {
-    [super prepareForReuse];
+    Tweet *tweet = self.tweet;
+    [self.profileImageView setImageWithURL:tweet.user.profileImageURL];
+    self.nameLabel.text = tweet.user.name;
+    self.screenNameLabel.text = [@"@" stringByAppendingString:tweet.user.screenName];
+    self.createdAgoLabel.text = tweet.createdAgoString;
+    self.tweetTextLabel.text = tweet.text;
+    self.retweetsButton.selected = tweet.retweeted;
+    self.favoritesButton.selected = tweet.favorited;
+    self.retweetsCountLabel.text = [NSString stringWithFormat:@"%d", tweet.retweetCount];
+    self.favoritesCountLabel.text = [NSString stringWithFormat:@"%d", tweet.favoriteCount];
     [self refreshData];
 }
 
 - (IBAction)didTapRetweet:(id)sender {
-    
     if (self.retweetsButton.isSelected) {
         
         self.retweetsButton.selected = NO;
@@ -63,7 +79,6 @@
 }
 
 - (IBAction)didTapFavorite:(id)sender {
-    
     if (self.tweet.favorited) {
         
         self.tweet.favorited = NO;
@@ -98,7 +113,6 @@
 }
 
 - (void)refreshData {
-    
     self.favoritesCountLabel.text = [NSString stringWithFormat:@"%d",self.tweet.favoriteCount];
     [self.favoritesButton setImage:[UIImage imageNamed:@"favor-icon-red.png"] forState:UIControlStateSelected];
     
@@ -106,5 +120,14 @@
     [self.retweetsButton setImage:[UIImage imageNamed:@"retweet-icon-green"] forState:UIControlStateSelected];
 }
 
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 
 @end

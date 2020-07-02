@@ -12,8 +12,10 @@
 #import "Tweet.h"
 #import "UIImageView+AFNetworking.h"
 #import "ComposeViewController.h"
+#import "DetailsViewController.h"
 #import "AppDelegate.h"
 #import "LoginViewController.h"
+#import "NSDate+DateTools.h"
 
 @interface TimelineViewController () <UITableViewDataSource,
                                       UITableViewDelegate,
@@ -27,6 +29,9 @@
 
 @implementation TimelineViewController
 
+-(void) viewWillAppear:(BOOL)animated {
+    [self.tableView reloadData];
+}
 - (void)viewDidLoad {
     
     [super viewDidLoad];
@@ -78,9 +83,22 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
-    UINavigationController *navigationController = [segue destinationViewController];
-    ComposeViewController *composeController = (ComposeViewController *)navigationController.topViewController;
-    composeController.delegate = self;
+    if ([segue.identifier isEqualToString:@"composeTweet"]) {
+        UINavigationController *navigationController = [segue destinationViewController];
+        ComposeViewController *composeController = (ComposeViewController *)navigationController.topViewController;
+        composeController.delegate = self;
+    }
+    else {
+        if ([segue.identifier isEqualToString:@"viewTweetDetails"]) {
+            UITableViewCell *tappedCell = sender;
+            NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
+            Tweet *currentTweet = self.tweetsArray[indexPath.row];
+            DetailsViewController *detailsViewController = [segue destinationViewController];
+            detailsViewController.tweet = currentTweet;
+            [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+        }
+    }
+
 }
 
 - (void) didTweet:(Tweet *)tweet {
@@ -92,14 +110,18 @@
                  cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
         
     TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetCell"];
-    cell.tweet = self.tweetsArray[indexPath.row];
-    cell.nameLabel.text = cell.tweet.user.name;
-    cell.screenNameLabel.text = [@"@" stringByAppendingString:cell.tweet.user.screenName];
-    cell.tweetTextLabel.text = cell.tweet.text;
-    cell.retweetsCountLabel.text = [NSString stringWithFormat:@"%d", cell.tweet.retweetCount];
-    cell.favoritesCountLabel.text = [NSString stringWithFormat:@"%d", cell.tweet.favoriteCount];
-    cell.createdAtLabel.text = cell.tweet.createdAtString;
-    [cell.profileImageView setImageWithURL:cell.tweet.user.profileImageURL];
+    Tweet *tweet = self.tweetsArray[indexPath.row];
+    cell.tweet = tweet;
+    cell.nameLabel.text = tweet.user.name;
+    cell.screenNameLabel.text = [@"@" stringByAppendingString:tweet.user.screenName];
+    cell.tweetTextLabel.text = tweet.text;
+    cell.retweetsCountLabel.text = [NSString stringWithFormat:@"%d", tweet.retweetCount];
+    cell.favoritesCountLabel.text = [NSString stringWithFormat:@"%d", tweet.favoriteCount];
+    cell.createdAgoLabel.text = tweet.createdAgoString;
+    [cell.profileImageView setImageWithURL:tweet.user.profileImageURL];
+    
+    cell.retweetsButton.selected = tweet.retweeted;
+    cell.favoritesButton.selected = tweet.favorited;
     
     return cell;
 }
