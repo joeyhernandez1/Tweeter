@@ -12,6 +12,7 @@
 #import "Tweet.h"
 #import "UIImageView+AFNetworking.h"
 #import "ComposeViewController.h"
+#import "DetailsViewController.h"
 #import "AppDelegate.h"
 #import "LoginViewController.h"
 #import "NSDate+DateTools.h"
@@ -28,6 +29,9 @@
 
 @implementation TimelineViewController
 
+-(void) viewWillAppear:(BOOL)animated {
+    [self.tableView reloadData];
+}
 - (void)viewDidLoad {
     
     [super viewDidLoad];
@@ -79,9 +83,22 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
-    UINavigationController *navigationController = [segue destinationViewController];
-    ComposeViewController *composeController = (ComposeViewController *)navigationController.topViewController;
-    composeController.delegate = self;
+    if ([segue.identifier isEqualToString:@"composeTweet"]) {
+        UINavigationController *navigationController = [segue destinationViewController];
+        ComposeViewController *composeController = (ComposeViewController *)navigationController.topViewController;
+        composeController.delegate = self;
+    }
+    else {
+        if ([segue.identifier isEqualToString:@"viewTweetDetails"]) {
+            UITableViewCell *tappedCell = sender;
+            NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
+            Tweet *currentTweet = self.tweetsArray[indexPath.row];
+            DetailsViewController *detailsViewController = [segue destinationViewController];
+            detailsViewController.tweet = currentTweet;
+            [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+        }
+    }
+
 }
 
 - (void) didTweet:(Tweet *)tweet {
