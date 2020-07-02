@@ -119,6 +119,8 @@
     cell.favoritesCountLabel.text = [NSString stringWithFormat:@"%d", tweet.favoriteCount];
     cell.createdAgoLabel.text = tweet.createdAgoString;
     [cell.profileImageView setImageWithURL:tweet.user.profileImageURL];
+    cell.profileImageView.layer.masksToBounds = YES;
+    cell.profileImageView.layer.cornerRadius = cell.profileImageView.layer.bounds.size.width /2;
     
     cell.retweetsButton.selected = tweet.retweeted;
     cell.favoritesButton.selected = tweet.favorited;

@@ -276,17 +276,38 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="yL0-Np-KNR">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="yL0-Np-KNR">
                                 <rect key="frame" x="0.0" y="44" width="375" height="214"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Characters Remaining:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kwr-TM-YRt">
+                                <rect key="frame" x="8" y="266" width="174" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="280" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bIZ-eP-mLJ">
+                                <rect key="frame" x="190" y="266" width="33.5" height="21"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="bIZ-eP-mLJ" firstAttribute="top" secondItem="Kwr-TM-YRt" secondAttribute="top" id="5YS-F9-0TA"/>
+                            <constraint firstItem="oCt-dV-cJX" firstAttribute="bottom" secondItem="Kwr-TM-YRt" secondAttribute="bottom" constant="360" id="7eI-5Z-KV9"/>
+                            <constraint firstItem="yL0-Np-KNR" firstAttribute="trailing" secondItem="oCt-dV-cJX" secondAttribute="trailing" id="9kk-PO-b6z"/>
+                            <constraint firstItem="yL0-Np-KNR" firstAttribute="leading" secondItem="oCt-dV-cJX" secondAttribute="leading" id="ADL-tp-WVE"/>
+                            <constraint firstItem="Kwr-TM-YRt" firstAttribute="top" secondItem="yL0-Np-KNR" secondAttribute="bottom" constant="8" id="JpP-NC-6LM"/>
+                            <constraint firstItem="Kwr-TM-YRt" firstAttribute="leading" secondItem="oCt-dV-cJX" secondAttribute="leading" constant="8" id="UtV-vB-TlU"/>
+                            <constraint firstItem="bIZ-eP-mLJ" firstAttribute="leading" secondItem="Kwr-TM-YRt" secondAttribute="trailing" constant="8" id="bIA-mN-ol5"/>
+                            <constraint firstItem="yL0-Np-KNR" firstAttribute="top" secondItem="uio-aT-vnI" secondAttribute="top" constant="44" id="o7x-vW-FyZ"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="oCt-dV-cJX"/>
                     </view>
                     <navigationItem key="navigationItem" id="V5A-zh-e6X">
@@ -302,6 +323,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="characterCountLabel" destination="bIZ-eP-mLJ" id="7NX-5H-Qms"/>
                         <outlet property="textView" destination="yL0-Np-KNR" id="2tR-2L-18x"/>
                     </connections>
                 </viewController>

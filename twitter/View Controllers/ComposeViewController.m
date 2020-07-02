@@ -9,9 +9,10 @@
 #import "ComposeViewController.h"
 #import "APIManager.h"
 
-@interface ComposeViewController ()
+@interface ComposeViewController () <UITextViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UITextView *textView;
+@property (weak, nonatomic) IBOutlet UILabel *characterCountLabel;
 
 @end
 
@@ -19,10 +20,31 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.textView.delegate = self;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     self.textView.text = @"";
+}
+
+- (void) textViewDidChange:(UITextView *)textView {
+    NSInteger len = textView.text.length;
+    BOOL ableToTweet = self.navigationItem.rightBarButtonItem.isEnabled;
+    
+    if (len > 280) {
+        self.characterCountLabel.textColor = [UIColor redColor];
+        if (ableToTweet) {
+            self.navigationItem.rightBarButtonItem.enabled = NO;
+        }
+    }
+    else {
+        self.characterCountLabel.textColor = [UIColor blackColor];
+        if (!ableToTweet) {
+            self.navigationItem.rightBarButtonItem.enabled = YES;
+        }
+    }
+    self.characterCountLabel.text = [NSString stringWithFormat:@"%li",280-len];
+   
 }
 
 - (IBAction)onTweetTap:(id)sender {

@@ -33,6 +33,8 @@
     
     Tweet *tweet = self.tweet;
     [self.profileImageView setImageWithURL:tweet.user.profileImageURL];
+    self.profileImageView.layer.masksToBounds = YES;
+    self.profileImageView.layer.cornerRadius = self.profileImageView.layer.bounds.size.width /2;
     self.nameLabel.text = tweet.user.name;
     self.screenNameLabel.text = [@"@" stringByAppendingString:tweet.user.screenName];
     self.createdAgoLabel.text = tweet.createdAgoString;
