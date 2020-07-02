@@ -3,7 +3,6 @@
 //  twitter
 //
 //  Created by Joey R. Hernandez Perez on 6/29/20.
-//  Copyright © 2020 Emerson Malca. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

@@ -31,20 +31,20 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.profileImageView setImageWithURL:self.tweet.user.profileImageURL];
-    self.nameLabel.text = self.tweet.user.name;
-    self.screenNameLabel.text = self.tweet.user.screenName;
-    self.createdAgoLabel.text = self.tweet.createdAgoString;
-    self.tweetTextLabel.text = self.tweet.text;
-    self.retweetsButton.selected = self.tweet.retweeted;
-    self.favoritesButton.selected = self.tweet.favorited;
-    self.retweetsCountLabel.text = [NSString stringWithFormat:@"%d", self.tweet.retweetCount];
-    self.favoritesCountLabel.text = [NSString stringWithFormat:@"%d", self.tweet.favoriteCount];
+    Tweet *tweet = self.tweet;
+    [self.profileImageView setImageWithURL:tweet.user.profileImageURL];
+    self.nameLabel.text = tweet.user.name;
+    self.screenNameLabel.text = [@"@" stringByAppendingString:tweet.user.screenName];
+    self.createdAgoLabel.text = tweet.createdAgoString;
+    self.tweetTextLabel.text = tweet.text;
+    self.retweetsButton.selected = tweet.retweeted;
+    self.favoritesButton.selected = tweet.favorited;
+    self.retweetsCountLabel.text = [NSString stringWithFormat:@"%d", tweet.retweetCount];
+    self.favoritesCountLabel.text = [NSString stringWithFormat:@"%d", tweet.favoriteCount];
     [self refreshData];
 }
 
 - (IBAction)didTapRetweet:(id)sender {
-    
     if (self.retweetsButton.isSelected) {
         
         self.retweetsButton.selected = NO;
@@ -79,7 +79,6 @@
 }
 
 - (IBAction)didTapFavorite:(id)sender {
-    
     if (self.tweet.favorited) {
         
         self.tweet.favorited = NO;
@@ -114,7 +113,6 @@
 }
 
 - (void)refreshData {
-    
     self.favoritesCountLabel.text = [NSString stringWithFormat:@"%d",self.tweet.favoriteCount];
     [self.favoritesButton setImage:[UIImage imageNamed:@"favor-icon-red.png"] forState:UIControlStateSelected];
     
